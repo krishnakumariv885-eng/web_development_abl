@@ -1,0 +1,417 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Online Bus and Train Ticket Booking</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #eaf2f8;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #123c69;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        nav {
+            background-color: #205493;
+            padding: 15px;
+            text-align: center;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 15px;
+            font-size: 18px;
+        }
+
+        .container {
+            width: 75%;
+            margin: 25px auto;
+            background-color: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px gray;
+        }
+
+        h2 {
+            color: #123c69;
+            border-bottom: 2px solid #123c69;
+            padding-bottom: 8px;
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px;
+            margin-top: 6px;
+            border: 1px solid gray;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #123c69;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            margin-top: 20px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #2874a6;
+        }
+
+        .services {
+            background-color: #eaf2f8;
+            padding: 15px;
+            margin-top: 15px;
+            border-radius: 8px;
+        }
+
+        .seats {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 15px;
+        }
+
+        .seat {
+            background-color: lightgreen;
+            padding: 15px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .seat.selected {
+            background-color: #2874a6;
+            color: white;
+        }
+
+        .seat.booked {
+            background-color: gray;
+            color: white;
+            cursor: not-allowed;
+        }
+
+        .result {
+            display: none;
+            background-color: #e8f8f5;
+            padding: 20px;
+            margin-top: 25px;
+            border-radius: 8px;
+        }
+
+        footer {
+            background-color: #123c69;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            margin-top: 30px;
+        }
+
+        @media(max-width: 600px) {
+            .container {
+                width: 90%;
+                padding: 15px;
+            }
+
+            nav a {
+                display: inline-block;
+                margin: 5px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>Online Bus and Train Ticket Booking</h1>
+    <p>Book Your Journey Easily and Safely</p>
+</header>
+
+<nav>
+    <a href="#">Home</a>
+    <a href="#booking">Booking</a>
+    <a href="#services">Services</a>
+    <a href="#contact">Contact</a>
+</nav>
+
+<div class="container" id="booking">
+
+    <h2>Travel Booking Form</h2>
+
+    <form id="bookingForm">
+
+        <label>Choose Travel Type:</label>
+        <select id="travelType">
+            <option value="Bus">Bus</option>
+            <option value="Train">Train</option>
+        </select>
+
+        <label>Source Location:</label>
+        <input type="text" id="source"
+               placeholder="Enter starting location" required>
+
+        <label>Destination Location:</label>
+        <input type="text" id="destination"
+               placeholder="Enter destination" required>
+
+        <label>Journey Date:</label>
+        <input type="date" id="date" required>
+
+        <label>Return Date:</label>
+        <input type="date" id="returnDate">
+
+        <label>Passenger Name:</label>
+        <input type="text" id="name"
+               placeholder="Enter passenger name" required>
+
+        <label>Age:</label>
+        <input type="number" id="age"
+               min="1" max="120" required>
+
+        <label>Gender:</label>
+        <select id="gender">
+            <option>Male</option>
+            <option>Female</option>
+            <option>Other</option>
+        </select>
+
+        <label>Email Address:</label>
+        <input type="email" id="email"
+               placeholder="Enter email address" required>
+
+        <label>Mobile Number:</label>
+        <input type="tel" id="mobile"
+               placeholder="Enter mobile number" required>
+
+        <label>Number of Passengers:</label>
+        <input type="number" id="passengers"
+               min="1" max="4" value="1" required>
+
+        <h2 id="services">Available Services</h2>
+
+        <label>Select Service:</label>
+        <select id="service">
+            <option value="Express">Express Service</option>
+            <option value="Superfast">Superfast Service</option>
+            <option value="AC">AC Service</option>
+            <option value="Sleeper">Sleeper Service</option>
+        </select>
+
+        <label>Choose Seat:</label>
+
+        <div class="seats" id="seatContainer">
+            <div class="seat" data-seat="1">1</div>
+            <div class="seat" data-seat="2">2</div>
+            <div class="seat booked">3</div>
+            <div class="seat" data-seat="4">4</div>
+            <div class="seat" data-seat="5">5</div>
+            <div class="seat" data-seat="6">6</div>
+            <div class="seat booked">7</div>
+            <div class="seat" data-seat="8">8</div>
+        </div>
+
+        <p>Green = Available | Blue = Selected | Grey = Booked</p>
+
+        <h2>Payment Information</h2>
+
+        <label>Payment Method:</label>
+        <select id="payment">
+            <option>UPI</option>
+            <option>Debit Card</option>
+            <option>Credit Card</option>
+            <option>Net Banking</option>
+        </select>
+
+        <label>Fare Per Passenger:</label>
+        <input type="text" value="₹500" readonly>
+
+        <button type="button" onclick="calculateFare()">
+            Calculate Fare
+        </button>
+
+        <h3 id="totalFare">Total Fare: ₹500</h3>
+
+        <button type="submit">Confirm Booking</button>
+        <button type="reset">Clear Form</button>
+
+    </form>
+
+    <div class="result" id="result">
+        <h2>Ticket Booking Confirmation</h2>
+        <p id="ticketDetails"></p>
+    </div>
+
+</div>
+
+<div class="container">
+    <h2>Our Services</h2>
+
+    <div class="services">
+        <h3>Bus Booking</h3>
+        <p>Book different types of buses for comfortable travel.</p>
+    </div>
+
+    <div class="services">
+        <h3>Train Booking</h3>
+        <p>Choose your train and reserve your preferred seat.</p>
+    </div>
+
+    <div class="services">
+        <h3>Online Payment</h3>
+        <p>Choose a payment method for your ticket booking.</p>
+    </div>
+
+    <div class="services">
+        <h3>Easy Reservation</h3>
+        <p>Book tickets easily with passenger and journey details.</p>
+    </div>
+</div>
+
+<footer id="contact">
+    <h3>Online Ticket Booking System</h3>
+    <p>Contact: support@ticketbooking.com</p>
+    <p>Thank You for Visiting Our Website!</p>
+    <p>© 2026 All Rights Reserved</p>
+</footer>
+
+<script>
+
+    let selectedSeats = [];
+
+    let seatElements = document.querySelectorAll(".seat:not(.booked)");
+
+    seatElements.forEach(function(seat) {
+
+        seat.addEventListener("click", function() {
+
+            let seatNumber = seat.dataset.seat;
+            let passengerCount =
+                Number(document.getElementById("passengers").value);
+
+            if (seat.classList.contains("selected")) {
+
+                seat.classList.remove("selected");
+
+                selectedSeats = selectedSeats.filter(
+                    s => s !== seatNumber
+                );
+
+            } else {
+
+                if (selectedSeats.length >= passengerCount) {
+                    alert("You can select only " +
+                          passengerCount + " seat(s).");
+                    return;
+                }
+
+                seat.classList.add("selected");
+                selectedSeats.push(seatNumber);
+            }
+
+        });
+
+    });
+
+    function calculateFare() {
+
+        let passengers =
+            Number(document.getElementById("passengers").value);
+
+        if (passengers < 1 || passengers > 4) {
+            alert("Please enter 1 to 4 passengers.");
+            return;
+        }
+
+        let total = passengers * 500;
+
+        document.getElementById("totalFare").innerHTML =
+            "Total Fare: ₹" + total;
+    }
+
+    document.getElementById("bookingForm").addEventListener(
+        "submit", function(event) {
+
+        event.preventDefault();
+
+        let type = document.getElementById("travelType").value;
+        let source = document.getElementById("source").value;
+        let destination =
+            document.getElementById("destination").value;
+        let date = document.getElementById("date").value;
+        let name = document.getElementById("name").value;
+        let age = document.getElementById("age").value;
+        let gender = document.getElementById("gender").value;
+        let email = document.getElementById("email").value;
+        let mobile = document.getElementById("mobile").value;
+        let passengers =
+            Number(document.getElementById("passengers").value);
+        let service = document.getElementById("service").value;
+        let payment = document.getElementById("payment").value;
+
+        if (passengers < 1 || passengers > 4) {
+            alert("Please enter 1 to 4 passengers.");
+            return;
+        }
+
+        if (Number(age) < 1 || Number(age) > 120) {
+            alert("Please enter a valid age.");
+            return;
+        }
+
+        if (selectedSeats.length !== passengers) {
+            alert("Please select seats for all passengers.");
+            return;
+        }
+
+        let fare = passengers * 500;
+
+        document.getElementById("ticketDetails").innerHTML =
+
+            "<b>Passenger Name:</b> " + name +
+            "<br><b>Age:</b> " + age +
+            "<br><b>Gender:</b> " + gender +
+            "<br><b>Email:</b> " + email +
+            "<br><b>Mobile:</b> " + mobile +
+            "<br><b>Travel Type:</b> " + type +
+            "<br><b>Source:</b> " + source +
+            "<br><b>Destination:</b> " + destination +
+            "<br><b>Journey Date:</b> " + date +
+            "<br><b>Passengers:</b> " + passengers +
+            "<br><b>Service:</b> " + service +
+            "<br><b>Selected Seats:</b> " +
+            selectedSeats.join(", ") +
+            "<br><b>Payment:</b> " + payment +
+            "<br><b>Total Fare:</b> ₹" + fare +
+            "<br><br><b>Booking Successful!</b>";
+
+        document.getElementById("result").style.display = "block";
+
+        window.scrollTo({
+            top: document.getElementById("result").offsetTop,
+            behavior: "smooth"
+        });
+
+    });
+
+</script>
+
+</body>
+</html>
