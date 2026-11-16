@@ -1,0 +1,173 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Doctor Appointment Booking</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            background-color: #eaf4f4;
+            margin: 0;
+        }
+
+        header {
+            background-color: teal;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .container {
+            width: 80%;
+            margin: 25px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        h2 {
+            color: teal;
+            text-align: center;
+        }
+
+        .doctor {
+            background: #d9eeee;
+            padding: 15px;
+            margin: 10px;
+            border-radius: 8px;
+        }
+
+        label {
+            display: block;
+            margin-top: 12px;
+            font-weight: bold;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background: teal;
+            color: white;
+            padding: 12px;
+            border: none;
+            width: 100%;
+            margin-top: 20px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: darkcyan;
+        }
+
+        footer {
+            background: teal;
+            color: white;
+            text-align: center;
+            padding: 12px;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>City Care Hospital</h1>
+    <p>Doctor Appointment Booking System</p>
+</header>
+
+<div class="container">
+
+    <h2>Our Doctors</h2>
+
+    <div class="doctor">
+        <h3>Dr. Ravi Kumar</h3>
+        <p>Specialization: Cardiologist</p>
+        <p>Timing: 9 AM - 1 PM</p>
+    </div>
+
+    <div class="doctor">
+        <h3>Dr. Priya Sharma</h3>
+        <p>Specialization: Dermatologist</p>
+        <p>Timing: 10 AM - 2 PM</p>
+    </div>
+
+    <div class="doctor">
+        <h3>Dr. Arjun Reddy</h3>
+        <p>Specialization: Neurologist</p>
+        <p>Timing: 4 PM - 8 PM</p>
+    </div>
+
+    <h2>Book an Appointment</h2>
+
+    <form onsubmit="bookAppointment(event)">
+
+        <label>Patient Name</label>
+        <input type="text" id="name" required>
+
+        <label>Age</label>
+        <input type="number" min="1" max="120" required>
+
+        <label>Phone Number</label>
+        <input type="tel" pattern="[0-9]{10}" required>
+
+        <label>Select Doctor</label>
+        <select id="doctor" required>
+            <option value="">Choose Doctor</option>
+            <option>Dr. Ravi Kumar</option>
+            <option>Dr. Priya Sharma</option>
+            <option>Dr. Arjun Reddy</option>
+        </select>
+
+        <label>Appointment Date</label>
+        <input type="date" id="date" required>
+
+        <label>Available Time Slot</label>
+        <select id="time" required>
+            <option value="">Select Time</option>
+            <option>9:00 AM</option>
+            <option>10:00 AM</option>
+            <option>11:00 AM</option>
+            <option>4:00 PM</option>
+            <option>5:00 PM</option>
+        </select>
+
+        <button type="submit">Book Appointment</button>
+
+    </form>
+
+    <h3 id="message" style="text-align:center;color:green;"></h3>
+
+</div>
+
+<footer>
+    <p>Contact: 9876543210 | citycare@gmail.com</p>
+    <p>© 2026 City Care Hospital</p>
+</footer>
+
+<script>
+    function bookAppointment(event) {
+        event.preventDefault();
+
+        let name = document.getElementById("name").value;
+        let doctor = document.getElementById("doctor").value;
+        let date = document.getElementById("date").value;
+        let time = document.getElementById("time").value;
+
+        document.getElementById("message").innerHTML =
+            "Appointment Booked Successfully!<br>" +
+            "Patient: " + name + "<br>" +
+            "Doctor: " + doctor + "<br>" +
+            "Date: " + date + "<br>" +
+            "Time: " + time;
+    }
+</script>
+
+</body>
+</html>
+
